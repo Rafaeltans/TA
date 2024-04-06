@@ -1,17 +1,55 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for, redirect, session
 from tensorflow.keras.models import load_model
 import cv2
 import numpy as np
 
 app = Flask(__name__)
+app.secret_key = 'secret_key'
 model = load_model('C:/Users/WINDOWS/Documents/TA/Referensi TA/Code/model5.h5')
 
 # Definisi kelas yang sesuai dengan indeks prediksi
 classes = ['Chickenpox', 'Cowpox', 'Healthy', 'Monkeypox']
 
+users = {
+    'user1': 'password1',
+    'user2': 'password2'
+}
+
+# Fungsi dekorator untuk memeriksa apakah pengguna telah login sebelum mengakses halaman tertentu
+@app.before_request
+def check_login():
+    allowed_routes = ['index', 'login']
+    if request.endpoint not in allowed_routes and 'username' not in session:
+        return redirect(url_for('login'))
+
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('login.html')
+    username = session.get('username', None)  # Ambil nama pengguna dari session
+    return render_template('logintest.html', username=username)  # Teruskan nama pengguna ke template HTML
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username in users and users[username] == password:
+            session['username'] = username
+            return redirect(url_for('dashboard'))
+        else:
+            return 'Invalid username or password. <a href="/login">Try again</a>'
+    return render_template('logintest.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('login'))
+
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    username = session.get('username')
+    return render_template('dashboard.html', username=username)
 
 @app.route('/index1', methods=['GET'])
 @app.route('/predict', methods=['POST'])

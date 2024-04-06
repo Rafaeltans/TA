@@ -11,7 +11,7 @@ classes = ['Chickenpox', 'Cowpox', 'Healthy', 'Monkeypox']
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/index1', methods=['GET'])
 @app.route('/predict', methods=['POST'])

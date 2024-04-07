@@ -26,48 +26,17 @@ h1::after {
     color: black;
 }
 
-h2::after {
-    content: " Cacar";
-    color: #FF0000;
-}
-
+/*=========== LOGIN ==========*/
 #backgroundInLogin {
     position: absolute;
     background-color: #F0EFEF;
-    top: 110%;
-    position: absolute;
+    margin-top: 50%;
     border-radius: 70px;
     padding: 10px 100px;
 }
 
-#inputUserName {
-    border: solid #FB7476;
-    border-radius: 10px;
-    padding: 10px 100px;
-}
-
-#inputUserName::placeholder {
-    text-align: left; /* Menetapkan posisi placeholder ke kiri */
-    padding: 0; /* Menghapus padding untuk placeholder */
-}
-
-#inputPassword {
-    border:  solid #FB7476;
-    border-radius: 70px;
-}
-
-#buttonLogin {
-    background-color: #F36E5D;
-    border: none;
-    color: #FFFFFF;
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: 100px;
-    margin-top: 20px;
-    padding: 10px 100px;
-}
-
-#hasilPrediksi {
+#welcomeInLogin {
+    text-align: center;
     font-size: 20px;
 }
 
@@ -79,12 +48,69 @@ h2::after {
     height: 150px;
 }
 
+#username {
+    width: 100%;
+    border: solid #FB7476;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#password {
+    width: 100%;
+    border: solid #FB7476;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#buttonLogin {
+    background-color: #F36E5D;
+    border: none;
+    color: #FFFFFF;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 100px;
+}
+/* ============================================= */
+
+/*=========== DASHBOARD ==========*/
+
+h2::after {
+    content: " Cacar";
+    color: #FF0000;
+}
+
+#backgroundDashboard {
+    background-color: #F0EFEF;
+    top: 110%;
+    position: absolute;
+    border-radius: 70px;
+    padding: 10px 200px;
+}
+
 #gambarDashboard {
     display: block;
     margin-left: auto;
     margin-right: auto;
     padding-top: 80px;
 }
+
+/* ============================================= */
+
+/*=========== DASHBOARD ==========*/
+
+/* ============================================= */
+#hasilPrediksi {
+    font-size: 20px;
+}
+
+
 
 #gambarKlasifikasi{
     display: block;
@@ -136,13 +162,7 @@ h2::after {
     padding: 10px 200px;
 }
 
-#backgroundDashboard {
-    background-color: #F0EFEF;
-    top: 110%;
-    position: absolute;
-    border-radius: 70px;
-    padding: 10px 200px;
-}
+
 
 #predictionResult {
     color: #FF0000;

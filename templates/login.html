@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <title>Login</title>
 </head>
 
@@ -13,23 +13,25 @@
     <h1>Klasifikasi</h1>
 
     <div id="backgroundInLogin">
-        <h3>Selamat Datang</h3>
+        <h3 id="welcomeInLogin">Selamat Datang</h3>
         <img src="{{ url_for('static', filename='bro.png') }}" alt="LoginPage" id="gambarLogin">
 
-        <h3>UserName</h3>
-        <input type="text" id="inputUserName" placeholder="Input Your Username">
+        <form action="/login" method="post">
+            <br>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" placeholder="Input Your Username"><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" placeholder="Input Your Password"><br>
+            <input type="checkbox" onclick="myFunction()">Tampilkan Password <br>
+            <button type="submit" id="buttonLogin">Login</button>
 
-        <h3>Password</h3>
-        <input type="password" id="inputPassword" placeholder="Input Your Password">
-        <br>
-        <input type="checkbox" onclick="myFunction()">Tampilkan Password
-        <br>
-        <button onclick="uploadImage()" id="buttonLogin">Login</button>
+        </form>
+
     </div>
 
     <script>
         function myFunction() {
-            var x = document.getElementById("inputPassword");
+            var x = document.getElementById("password");
             if (x.type === "password") {
                 x.type = "text";
             } else {

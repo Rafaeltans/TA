@@ -18,14 +18,14 @@ users = {
 # Fungsi dekorator untuk memeriksa apakah pengguna telah login sebelum mengakses halaman tertentu
 @app.before_request
 def check_login():
-    allowed_routes = ['index', 'login']
+    allowed_routes = ['index', 'login', 'static']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect(url_for('login'))
 
 @app.route('/', methods=['GET'])
 def index():
     username = session.get('username', None)  # Ambil nama pengguna dari session
-    return render_template('logintest.html', username=username)  # Teruskan nama pengguna ke template HTML
+    return render_template('login.html', username=username)  # Teruskan nama pengguna ke template HTML
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -37,7 +37,7 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             return 'Invalid username or password. <a href="/login">Try again</a>'
-    return render_template('logintest.html')
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():

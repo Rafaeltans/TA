@@ -9,14 +9,24 @@
 </head>
 <body>
     <h1>Klasifikasi</h1>
-    <p>Welcome, {{ username }}</p>
+    <h2 id="welcomeInDashboard">Jumpa lagi, {{ username }} 👋</h2>
+    <form action="/logout">
+        <button type="submit" id="btnlogOut">Log Out</button>
+    </form>
+
     <img src="{{ url_for('static', filename='bro1.png') }}" alt="" id="gambarDashboard">
 
     <div id="backgroundDashboard">
-        <h2>Yuk, Mulai Klasifikasi</h2>
-        <a href="/index1">Go to Index 1</a>
-        <a href="/index1">Go to Index 1</a>
-        <a href="/logout">Logout</a>
+        <h2 id="startClassification">Yuk, Mulai Klasifikasi</h2>
+        
+        <form action="/index1">
+            <button type="submit" id="btnToIndex1">index1</button>
+        </form>
+
+        <form action="/index1">
+            <button type="submit" id="btnToIndex2">index2</button>
+        </form>
+
     </div>
     
 </body>

@@ -3,8 +3,6 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 h1 {
@@ -30,14 +28,15 @@ h1::after {
 #backgroundInLogin {
     position: absolute;
     background-color: #F0EFEF;
-    margin-top: 50%;
+    margin-top: 60px;
     border-radius: 70px;
     padding: 10px 100px;
+    align-self: center;
 }
 
 #welcomeInLogin {
     text-align: center;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 #gambarLogin {
@@ -81,37 +80,63 @@ h1::after {
 
 /*=========== DASHBOARD ==========*/
 
-h2::after {
-    content: " Cacar";
-    color: #FF0000;
+#welcomeInDashboard {
+    margin-top: 75px;
+    text-align: left;
+    font-size: 20px;
+}
+
+#btnlogOut {
+    font-size: 15px;
+    cursor: pointer;
 }
 
 #backgroundDashboard {
     background-color: #F0EFEF;
-    top: 110%;
+    top: 105%;
     position: absolute;
     border-radius: 70px;
     padding: 10px 200px;
+    align-self: center;
+    align-items: center;
+}
+
+#startClassification::after {
+    content: " Cacar";
+    color: #FF0000;
 }
 
 #gambarDashboard {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 80px;
+}
+
+#btnToIndex1 {
+    background-color: #F36E5D;
+    border: #F36E5D;
+    color: #FFFFFF;
+    font-size: 25px; /* Sesuaikan ukuran font */
+    cursor: pointer;
+    border-radius: 100px;
+    float: left; /* Mengatur agar btnToIndex1 mengapung ke kiri */
+    margin-right: 60px; /* Sesuaikan jarak antara tombol */
+}
+
+#btnToIndex2 {
+    background-color: #F36E5D;
+    border: #F36E5D;
+    color: #FFFFFF;
+    font-size: 25px; /* Sesuaikan ukuran font */
+    cursor: pointer;
+    border-radius: 100px;
+    float: left; /* Mengatur agar btnToIndex2 mengapung ke kiri */
+    margin-left: 60px;
 }
 
 /* ============================================= */
 
-/*=========== DASHBOARD ==========*/
-
-/* ============================================= */
-#hasilPrediksi {
-    font-size: 20px;
-}
-
-
-
+/*=========== INDEX1 ==========*/
 #gambarKlasifikasi{
     display: block;
     margin-left: auto;
@@ -120,7 +145,6 @@ h2::after {
     width: 300px;
     height: 200px;
 }
-
 #fileInput {
     position: absolute;
     top: 115%;
@@ -140,6 +164,33 @@ h2::after {
     font-size: 25px;
 }
 
+#background {
+    background-color: #F0EFEF;
+    top: 130%;
+    position: absolute;
+    border-radius: 70px;
+    padding: 10px 200px;
+    align-self: center;
+}
+
+#hasilPrediksi {
+    font-size: 20px;
+}
+
+#predictionResult {
+    color: #FF0000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+/* ============================================= */
+
+
+
+
+
+
 #uploadButton {
     position: absolute;
     background-color: #F36E5D;
@@ -154,19 +205,7 @@ h2::after {
     font-size: 25px;
 }
 
-#background {
-    background-color: #F0EFEF;
-    top: 130%;
-    position: absolute;
-    border-radius: 70px;
-    padding: 10px 200px;
-}
 
 
 
-#predictionResult {
-    color: #FF0000;
-    font-weight: bold;
-    text-align: center;
-    font-size: 25px;
-}
+

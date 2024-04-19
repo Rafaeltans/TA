@@ -164,26 +164,6 @@ h1::after {
     font-size: 25px;
 }
 
-#background {
-    background-color: #F0EFEF;
-    top: 130%;
-    position: absolute;
-    border-radius: 70px;
-    padding: 10px 200px;
-    align-self: center;
-}
-
-#hasilPrediksi {
-    font-size: 20px;
-}
-
-#predictionResult {
-    color: #FF0000;
-    font-weight: bold;
-    text-align: center;
-    font-size: 25px;
-    margin-bottom: 5px;
-}
 /* ============================================= */
 
 /*=========== INDEX2 ==========*/
@@ -219,3 +199,24 @@ h1::after {
 }
 /* ============================================= */
 
+#background {
+    background-color: #F0EFEF;
+    top: 130%;
+    position: absolute;
+    border-radius: 70px;
+    padding: 10px 200px;
+    align-self: center;
+}
+
+#hasilPrediksi {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#predictionResult {
+    color: #FF0000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 5px;
+}

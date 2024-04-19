@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    <title>Image Prediction</title>
+</head>
+<body>
+    <h1>Klasifikasi</h1>
+    <div class="container">
+        <video id="video" autoplay></video>
+        <canvas id="canvas" width="300" height="200"></canvas>
+        <button id="btnSnap">Snap Photo</button>
+    </div>
+    
+    <div id="background">
+        <p id="hasilPrediksi">Hasil Prediksi :</p>
+        <div id="predictionResult"></div>
+    </div>
+
+    <script>
+        // Mengambil elemen video dan canvas
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        // Mengakses webcam saat halaman dimuat
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                console.log("An error occurred: " + err);
+            });
+
+        // Mengambil gambar saat tombol ditekan
+        document.getElementById('btnSnap').addEventListener('click', function() {
+            context.drawImage(video, 0, 0, 300, 200);
+
+            // Mengambil data gambar dari canvas sebagai blob
+            canvas.toBlob(function(blob) {
+                // Membuat objek FormData
+                var formData = new FormData();
+                formData.append('image', blob, 'image.jpg'); // Menyertakan data gambar dengan nama 'image'
+
+                // Mengirim gambar ke server untuk klasifikasi
+                fetch('/predict1', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('predictionResult').innerText = data.prediction;
+                })
+                .catch(error => console.error('Error:', error));
+            }, 'image/jpeg');
+        });
+
+    </script>
+</body>
+</html>

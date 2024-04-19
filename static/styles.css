@@ -186,12 +186,26 @@ h1::after {
 }
 /* ============================================= */
 
+/*=========== INDEX2 ==========*/
+#video {
+    width: 300px;
+    height: 200px;
+    margin-right: 20px; /* Jarak antara video dan canvas */
+}
 
+#canvas {
+    width: 300px;
+    height: 200px;
+}
 
+.container {
+    margin-top: 80px;
+    display: flex;
+    align-items: center; /* Pusatkan vertikal */
+    justify-content: center; /* Menengahkan horizontal */
+}
 
-
-
-#uploadButton {
+#btnSnap {
     position: absolute;
     background-color: #F36E5D;
     border: #F36E5D;
@@ -199,13 +213,9 @@ h1::after {
     font-size: 24;
     cursor: pointer;
     border-radius: 100px;
-    position: absolute;
     top: 110%;
-    left: 30%;
     font-size: 25px;
+    align-items: center;
 }
-
-
-
-
+/* ============================================= */
 

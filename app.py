@@ -5,8 +5,7 @@ import numpy as np
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
-model = load_model('C:/Users/WINDOWS/Documents/TA/Referensi TA/Code/model5.h5')
-model1 = load_model('C:/Users/WINDOWS/Documents/TA/Referensi TA/Code/model_AlexNet.h5')
+model = load_model('C:/Users/WINDOWS/Documents/TA/Referensi TA/Code/Project/TA/model7.h5')
 
 # Definisi kelas yang sesuai dengan indeks prediksi
 classes = ['Chickenpox', 'Cowpox', 'Healthy', 'Monkeypox']
@@ -36,8 +35,17 @@ def login():
         if username in users and users[username] == password:
             session['username'] = username
             return redirect(url_for('dashboard'))
+        elif username in users:
+            session['username'] = username
+            error = 'INVALID USERNAME'
+            return render_template('login.html', error=error)
+        elif password in users:
+            session['password'] = password
+            error = 'INVALID PASSWORD'
+            return render_template('login.html', error=error)
         else:
-            return 'Invalid username or password. <a href="/login">Try again</a>'
+            error = 'INVALID USERNAME AND PASSWORD'
+            return render_template('login.html', error=error)
     return render_template('login.html')
 
 @app.route('/logout')
@@ -60,28 +68,12 @@ def index1():
         img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_COLOR)
         img = cv2.resize(img, (227, 227))
         img = np.expand_dims(img, axis=0)
-        prediction = model1.predict(img)
+        prediction = model.predict(img)
         predicted_class_idx = np.argmax(prediction)
         predicted_class = classes[predicted_class_idx]
         return jsonify({'prediction': str(predicted_class)})
 
     return render_template('index1.html')
-
-@app.route('/index2', methods=['GET'])
-@app.route('/predict1', methods=['POST'])
-def index2():
-    if request.method == 'POST':
-        img = request.files['image'].read()
-        npimg = np.fromstring(img, np.uint8)
-        img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
-        img = cv2.resize(img, (227, 227))
-        img = np.expand_dims(img, axis=0)
-        prediction = model1.predict(img)
-        predicted_class_idx = np.argmax(prediction)
-        predicted_class = classes[predicted_class_idx]
-        return jsonify({'prediction': str(predicted_class)})
-
-    return render_template('index2.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -47,6 +47,12 @@ h1::after {
     height: 150px;
 }
 
+#errorWarning {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+
 #username {
     width: 100%;
     border: solid #FB7476;
@@ -87,7 +93,10 @@ h1::after {
 }
 
 #btnlogOut {
+    background-color: #F36E5D;
+    border: none;
     font-size: 15px;
+    color: white;
     cursor: pointer;
 }
 
@@ -98,7 +107,6 @@ h1::after {
     border-radius: 70px;
     padding: 10px 200px;
     align-self: center;
-    align-items: center;
 }
 
 #startClassification::after {
@@ -119,19 +127,8 @@ h1::after {
     font-size: 25px; /* Sesuaikan ukuran font */
     cursor: pointer;
     border-radius: 100px;
-    float: left; /* Mengatur agar btnToIndex1 mengapung ke kiri */
-    margin-right: 60px; /* Sesuaikan jarak antara tombol */
-}
-
-#btnToIndex2 {
-    background-color: #F36E5D;
-    border: #F36E5D;
-    color: #FFFFFF;
-    font-size: 25px; /* Sesuaikan ukuran font */
-    cursor: pointer;
-    border-radius: 100px;
-    float: left; /* Mengatur agar btnToIndex2 mengapung ke kiri */
-    margin-left: 60px;
+    margin: 0 auto;
+    display: block;
 }
 
 /* ============================================= */
@@ -164,39 +161,6 @@ h1::after {
     font-size: 25px;
 }
 
-/* ============================================= */
-
-/*=========== INDEX2 ==========*/
-#video {
-    width: 300px;
-    height: 200px;
-    margin-right: 20px; /* Jarak antara video dan canvas */
-}
-
-#canvas {
-    width: 300px;
-    height: 200px;
-}
-
-.container {
-    margin-top: 80px;
-    display: flex;
-    align-items: center; /* Pusatkan vertikal */
-    justify-content: center; /* Menengahkan horizontal */
-}
-
-#btnSnap {
-    position: absolute;
-    background-color: #F36E5D;
-    border: #F36E5D;
-    color: #FFFFFF;
-    font-size: 24;
-    cursor: pointer;
-    border-radius: 100px;
-    top: 110%;
-    font-size: 25px;
-    align-items: center;
-}
 /* ============================================= */
 
 #background {

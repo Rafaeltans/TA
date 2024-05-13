@@ -18,6 +18,9 @@
 
         <form action="/login" method="post">
             <br>
+            {% if error %}
+                <p id="errorWarning">{{ error }}</p>
+            {% endif %}
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username" placeholder="Input Your Username" required><br><br>
             <label for="password">Password:</label><br>

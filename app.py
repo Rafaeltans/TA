@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
-model = load_model('C:/Users/WINDOWS/Documents/TA/Referensi TA/Code/Project/TA/model7.h5')
+app.secret_key = 'sbgbfmjwbo'
+model = load_model('model7.h5')
 
 # Definisi kelas yang sesuai dengan indeks prediksi
 classes = ['Chickenpox', 'Cowpox', 'Healthy', 'Monkeypox']

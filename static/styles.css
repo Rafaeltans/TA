@@ -93,11 +93,15 @@ h1::after {
 }
 
 #btnlogOut {
+    position: absolute;
     background-color: #F36E5D;
-    border: none;
+    border: #F36E5D;
     font-size: 15px;
     color: white;
     cursor: pointer;
+    padding: 10px 10px;
+    top: 10px;
+    right: 8px;
 }
 
 #backgroundDashboard {

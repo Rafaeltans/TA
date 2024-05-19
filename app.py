@@ -1,11 +1,16 @@
 from flask import Flask, render_template, request, jsonify, url_for, redirect, session
 from tensorflow.keras.models import load_model
+import gdown
+import os
 import cv2
 import numpy as np
 
 app = Flask(__name__)
 app.secret_key = 'sbgbfmjwbo'
-model = load_model('model7.h5')
+
+local_model_path = 'model7.h5'
+
+model = load_model(local_model_path)
 
 # Definisi kelas yang sesuai dengan indeks prediksi
 classes = ['Chickenpox', 'Cowpox', 'Healthy', 'Monkeypox']
@@ -15,7 +20,6 @@ users = {
     'user2': 'password2'
 }
 
-# Fungsi dekorator untuk memeriksa apakah pengguna telah login sebelum mengakses halaman tertentu
 @app.before_request
 def check_login():
     allowed_routes = ['index', 'login', 'static']
@@ -24,28 +28,26 @@ def check_login():
 
 @app.route('/', methods=['GET'])
 def index():
-    username = session.get('username', None)  # Ambil nama pengguna dari session
-    return render_template('login.html', username=username)  # Teruskan nama pengguna ke template HTML
+    username = session.get('username', None)  
+    return render_template('login.html', username=username) 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username in users and users[username] == password:
+        if username not in users and password not in users.values():
+            error = "INVALID USERNAME AND PASSWORD"
+        elif username in users and users[username] == password:
             session['username'] = username
             return redirect(url_for('dashboard'))
-        elif username in users:
-            session['username'] = username
+        elif username not in users:
             error = 'INVALID USERNAME'
-            return render_template('login.html', error=error)
-        elif password in users:
-            session['password'] = password
-            error = 'INVALID PASSWORD'
-            return render_template('login.html', error=error)
         else:
-            error = 'INVALID USERNAME AND PASSWORD'
-            return render_template('login.html', error=error)
+            error = 'INVALID PASSWORD'
+            
+        return render_template('login.html', error=error)
+    
     return render_template('login.html')
 
 @app.route('/logout')
@@ -65,7 +67,7 @@ def dashboard():
 def index1():
     if request.method == 'POST':
         file = request.files['image']
-        img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_COLOR)
+        img = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_COLOR)
         img = cv2.resize(img, (227, 227))
         img = np.expand_dims(img, axis=0)
         prediction = model.predict(img)

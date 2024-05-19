@@ -10,11 +10,12 @@
 <body>
     <h1>Klasifikasi</h1>
     <img src="{{ url_for('static', filename='noImage.png') }}" alt="NoImage" id="gambarKlasifikasi">
-    <input type="file" id="fileInput" accept="image/*" onchange="validateFileType()">
+    <input type="file" id="fileInput" accept=".jpg, .jpeg, .png*" onchange="validateFileType()">
     <button onclick="uploadImage()" id="predictButton">Predict</button>
     <div id="background">
         <p id="hasilPrediksi">Hasil Prediksi :</p>
         <div id="predictionResult"></div>
+        <p id="fileError"></p>
     </div>
     
     <script>
@@ -23,10 +24,14 @@
             var fileName = document.getElementById("fileInput").value;
             var idxDot = fileName.lastIndexOf(".") + 1;
             var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            var errorMessage = document.getElementById("fileError");
+
             if (extFile !== "jpg" && extFile !== "jpeg" && extFile !== "png"){
-                alert("Only jpg/jpeg and png files are allowed!");
-                fileInput.value = ''; // Menghapus file yang salah dipilih
-            }   
+                errorMessage.innerText = "ONLY JPG/JPEG/PNG FILES ARE ALLOWED!!";
+                fileInput.value = ''; 
+            } else {
+                errorMessage.innerText = "";
+            }  
         }
 
         function uploadImage() {
@@ -42,8 +47,8 @@
             const imgElement = document.getElementById('gambarKlasifikasi');
             
             // Menetapkan ukuran gambar yang sama dengan noImage.png
-            imgElement.width = 300; // Sesuaikan dengan lebar noImage.png
-            imgElement.height = 200; // Sesuaikan dengan tinggi noImage.png
+            imgElement.width = 300; 
+            imgElement.height = 200; 
 
             // Menetapkan sumber gambar ke elemen img
             imgElement.src = imageURL;

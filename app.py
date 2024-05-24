@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify, url_for, redirect, session
 from tensorflow.keras.models import load_model
-import gdown
-import os
+import time
 import cv2
 import numpy as np
 
@@ -55,6 +54,12 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    return response
+
+
 @app.route('/dashboard', methods=['GET'])
 def dashboard():
     if 'username' not in session:
@@ -66,6 +71,8 @@ def dashboard():
 @app.route('/predict', methods=['POST'])
 def index1():
     if request.method == 'POST':
+        start_time = time.time()
+
         file = request.files['image']
         img = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_COLOR)
         img = cv2.resize(img, (227, 227))
@@ -73,7 +80,11 @@ def index1():
         prediction = model.predict(img)
         predicted_class_idx = np.argmax(prediction)
         predicted_class = classes[predicted_class_idx]
-        return jsonify({'prediction': str(predicted_class)})
+
+        end_time = time.time()
+        duration = end_time - start_time
+
+        return jsonify({'prediction': str(predicted_class), 'duration': duration})
 
     return render_template('index1.html')
 

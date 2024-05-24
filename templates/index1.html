@@ -15,6 +15,7 @@
     <div id="background">
         <p id="hasilPrediksi">Hasil Prediksi :</p>
         <div id="predictionResult"></div>
+        <div id="predictionDuration"></div>
         <p id="fileError"></p>
     </div>
     
@@ -60,6 +61,7 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('predictionResult').innerText = data.prediction;
+                document.getElementById('predictionDuration').innerText = 'Duration: ' + data.duration.toFixed(2) + ' seconds';
             })
             .catch(error => console.error('Error:', error));
         }

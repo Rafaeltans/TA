@@ -9,6 +9,9 @@
 </head>
 <body>
     <h1>Klasifikasi</h1>
+    <form action="/logout">
+        <button type="submit" id="btnlogOut">Log Out</button>
+    </form>
     <img src="{{ url_for('static', filename='noImage.png') }}" alt="NoImage" id="gambarKlasifikasi">
     <input type="file" id="fileInput" accept=".jpg, .jpeg, .png*" onchange="validateFileType()">
     <button onclick="uploadImage()" id="predictButton">Predict</button>
@@ -30,6 +33,9 @@
             if (extFile !== "jpg" && extFile !== "jpeg" && extFile !== "png"){
                 errorMessage.innerText = "ONLY JPG/JPEG/PNG FILES ARE ALLOWED!!";
                 fileInput.value = ''; 
+                gambarKlasifikasi.imageURL = "{{ url_for('static', filename='noImage.png') }}"
+                predictionResult.innerText = '';
+                predictionDuration.innerText = '';
             } else {
                 errorMessage.innerText = "";
             }  
@@ -38,6 +44,14 @@
         function uploadImage() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
+
+            const errorMessage = document.getElementById("fileError");
+
+            if (!file) {
+                errorMessage.innerText = "Tolong masukkan gambar terlebih dahulu.";
+                return;
+            }
+
             const formData = new FormData();
             formData.append('image', file);
 

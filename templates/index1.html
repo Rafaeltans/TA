@@ -28,12 +28,13 @@
             var fileName = document.getElementById("fileInput").value;
             var idxDot = fileName.lastIndexOf(".") + 1;
             var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            imgElement = document.getElementById("gambarKlasifikasi");
             var errorMessage = document.getElementById("fileError");
 
             if (extFile !== "jpg" && extFile !== "jpeg" && extFile !== "png"){
                 errorMessage.innerText = "ONLY JPG/JPEG/PNG FILES ARE ALLOWED!!";
                 fileInput.value = ''; 
-                gambarKlasifikasi.imageURL = "{{ url_for('static', filename='noImage.png') }}"
+                imgElement.src = "{{ url_for('static', filename='noImage.png') }}";
                 predictionResult.innerText = '';
                 predictionDuration.innerText = '';
             } else {
@@ -48,7 +49,7 @@
             const errorMessage = document.getElementById("fileError");
 
             if (!file) {
-                errorMessage.innerText = "Tolong masukkan gambar terlebih dahulu.";
+                errorMessage.innerText = "PILIH GAMBAR TERLEBIH DAHULU!!";
                 return;
             }
 

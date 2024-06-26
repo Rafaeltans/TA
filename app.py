@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, url_for, redirect, session
 from tensorflow.keras.models import load_model
+import tensorflow as tf
 import time
 import cv2
 import numpy as np
@@ -7,9 +8,21 @@ import numpy as np
 app = Flask(__name__)
 app.secret_key = 'sbgbfmjwbo'
 
+# Definisikan LRN custom layer
+class LRN(tf.keras.layers.Layer):
+    def __init__(self, depth_radius=5, bias=2, alpha=1e-4, beta=0.75, **kwargs):
+        super(LRN, self).__init__(**kwargs)
+        self.depth_radius = depth_radius
+        self.bias = bias
+        self.alpha = alpha
+        self.beta = beta
+
+    def call(self, inputs):
+        return tf.nn.local_response_normalization(inputs, depth_radius=self.depth_radius, bias=self.bias, alpha=self.alpha, beta=self.beta)
+
 local_model_path = 'model7.h5'
 
-model = load_model(local_model_path)
+model = load_model(local_model_path, custom_objects={'LRN': LRN})
 
 # Definisi kelas yang sesuai dengan indeks prediksi
 classes = ['Chickenpox', 'Cowpox', 'Healthy', 'Monkeypox']
@@ -83,10 +96,29 @@ def index1():
 
         end_time = time.time()
         duration = end_time - start_time
+        format = 60-duration
+        min = (format)
 
         return jsonify({'prediction': str(predicted_class), 'duration': duration})
 
     return render_template('index1.html')
+
+@app.route('/index2', methods=['GET'])
+@app.route('/predict1', methods=['POST'])
+def index2():
+    if request.method == 'POST':
+        img = request.files['image'].read()
+        npimg = np.fromstring(img, np.uint8)
+        img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+        img = cv2.resize(img, (227, 227))
+        img = np.expand_dims(img, axis=0)
+        prediction = model.predict(img)
+        predicted_class_idx = np.argmax(prediction)
+        predicted_class = classes[predicted_class_idx]
+        return jsonify({'prediction': str(predicted_class)})
+
+    return render_template('index2.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
